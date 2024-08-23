@@ -1,0 +1,657 @@
+/* Font Import */
+
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap');
+
+/* CSS Reset */
+
+*, ::before, ::after {
+    margin: 0;
+    padding: 0;
+}
+
+/* Global Properties */
+
+body {
+    padding: 30px 10vw 0;
+    font-family: "Kumbh Sans", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: hsl(219, 9%, 45%);
+    background: hsl(0, 0%, 100%);
+    overflow-y: hidden;
+}
+ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+}
+a {
+    text-decoration: none;
+    color: hsl(219, 9%, 45%);
+}
+h1, h2, h3, h4, h5 {
+    font-weight: 700;
+}
+h1, h2, h5 {
+    color: hsl(220, 13%, 13%);
+}
+h1 {
+    font-size: 43px;
+    line-height: 46px;
+}
+h2 {
+    font-size: 30px;
+}
+h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+h4, h5 {
+    font-size: 15px;
+}
+h4 {
+    text-decoration: line-through;
+}
+p {
+    line-height: 26px;
+}
+#checkout, #amount, #submit {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+}
+#checkout, #submit {
+    justify-content: center;
+    background: hsl(26, 100%, 55%);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+#checkout:hover, #submit:hover {
+    background: hsl(27, 100%, 71%);
+}
+#checkout p, #amount p, #submit p {
+    font-weight: 700;
+    color: hsl(220, 13%, 13%);
+}
+#checkout p, #add_cart img, #add_cart p {
+    user-select: none;
+}
+
+/* Loader */
+
+#loader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: hsl(0, 0%, 100%);
+    z-index: 6;
+    transition: transform 0.4s ease-in;
+}
+#loader img, #loader div {
+    width: 17%;
+    min-width: 180px;
+}
+#loader div {
+    height: 10px;
+    background: hsl(223, 64%, 98%);
+}
+#loader div::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: hsl(26, 100%, 55%);
+    transform-origin: left;
+    transform: scaleX(0%);
+    animation: loading_bar 1.5s ease forwards;
+}
+
+/* Header */
+
+header {
+    padding-bottom: 30px;
+    border-bottom: 1px solid hsla(220, 14%, 75%, 0.3);
+    /* I adjusted the alpha channel of the color to make it look more like the original design */
+}
+#menu {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: hsla(0, 0%, 0%, 0.75);
+    filter: opacity(0%);
+    transition: filter 0.3s ease;
+    z-index: 5;
+}
+#menu nav {
+    padding: 48px 10vw;
+    width: 65%;
+    height: 100%;
+    background: hsl(0, 0%, 100%);
+    box-sizing: border-box;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+#menu nav ul {
+    margin-top: 8vh;
+    flex-direction: column;
+    align-items: normal;
+    gap: 25px;
+}
+#menu nav ul li a {
+    font-weight: 700;
+    font-size: 18px;
+    color: hsl(220, 13%, 13%);
+}
+#desktop_navbar {
+    display: flex;
+    align-items: center;
+}
+#menu_icon {
+    display: none;
+    width: 19px;
+    margin-right: 20px;
+}
+#desktop_navbar > a {
+    margin-right: 60px;
+}
+
+/* Header (Links) */
+
+#links {
+    flex: 1;
+    gap: 37px;
+}
+#links li {
+    position: relative;
+}
+#links li::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -46px;
+    width: 100%;
+    height: 4px;
+    background: hsl(26, 100%, 55%);
+    transform: scaleX(0%);
+    transition: transform 0.4s ease;
+}
+#links li:hover::after {
+    transform: scaleX(100%);
+}
+#links li a {
+    transition: color 0.3s ease;
+}
+#links li:hover a {
+    color: hsl(220, 13%, 13%);
+}
+
+/* Header (Account) */
+
+#account {
+    gap: 40px;
+}
+#account img {
+    cursor: pointer;
+}
+#cart_icon {
+    position: relative;
+}
+#cart_icon::before {
+    content: var(--total_amount, "");
+    /* To edit the value of "content" property of this pseudo-element in JavaScript, I use "var()" in CSS */
+    /* If "--total_amount" is empty, then the other parameter is used by default */
+    padding: 0 7px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-weight: 700;
+    font-size: 11px;
+    color: hsl(0, 0%, 100%);
+    background: hsl(26, 100%, 55%);
+    border-radius: 7px;
+    transform: translate(50%, -50%);
+    filter: opacity(100%);
+    transition: filter 0.2s ease;
+    z-index: 1;
+}
+#account .empty::before {
+    filter: opacity(0%);
+}
+#cart_icon img {
+    width: 21px;
+    height: 21px;
+    transition: filter 0.3s ease;
+}
+#cart_icon img:hover {
+    filter: brightness(25%);
+}
+#avatar {
+    width: 45px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+#avatar:hover {
+    border-color: hsl(26, 100%, 55%);
+}
+
+/* Header (Cart) */
+
+#cart {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    right: calc(10vw + 110px - (21px / 2));
+    /* calc(horizontal padding of "body" + width of "account" section in the "header" - half width of the cart icon) */
+    top: 100px;
+    width: 330px;
+    height: 215px;
+    background: hsl(0, 0%, 100%);
+    border-radius: 10px;
+    box-shadow: 0px 15px 20px 0px hsla(220, 13%, 13%, 0.15);
+    transform: translateX(50%);
+    filter: opacity(0%);
+    transition: filter 0.3s ease;
+    z-index: 3;
+}
+#title {
+    padding: 20px;
+    border-bottom: 1px solid hsla(220, 14%, 75%, 0.3);
+}
+#products {
+    padding: 20px;
+    height: 100%;
+}
+#message {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+#cart .empty #message {
+    display: flex;
+}
+#message p {
+    font-weight: 700;
+    font-size: 15px;
+}
+#summary {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+#cart .empty #summary {
+    display: none;
+}
+#summary ul {
+    justify-content: space-between;
+}
+#summary ul li:first-of-type img {
+    width: 45px;
+    border-radius: 4px;
+}
+#results {
+    font-size: 15px;
+}
+#results span:last-of-type {
+    font-weight: 700;
+    color: hsl(220, 13%, 13%);
+}
+#delete_icon {
+    cursor: pointer;
+    transition: filter 0.3s ease;
+}
+#delete_icon:hover {
+    filter: brightness(50%);
+}
+#checkout {
+    height: 50px;
+}
+
+/* Main */
+
+main {
+    padding: 30px 0 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    height: calc(100vh - 30px - 54px - 30px - 100px);
+    /* calc(100vh - padding top of "body" - height of "header" - padding bottom of "header" - total vertical padding of "main") */
+    min-height: 580px;
+    /* On wide screens, there is no scrolling on the page but on smaller screens, I want to enable it (mainly due to the overflow of the "visuals" section on the header) */
+    /* With Chrome Tools, I seen that the "visuals" section starts to overflow the header at 680px but I have to substract the total padding of "main" (so 680px - 100px = 580px) */
+}
+
+/* Main (Lightbox) */
+
+#lightbox {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: hsla(0, 0%, 0%, 0.75);
+    filter: opacity(0%);
+    transition: filter 0.3s ease;
+    z-index: 4;
+}
+#lightbox div {
+    width: 40%;
+    max-width: 550px;
+}
+#close_lightbox {
+    margin-top: -40px;
+    /* To center the image, I have to add a negative margin-top which contains the height of "close_lightbox" image (20px) and the gap between both divs in the lightbox (20px) */
+    display: flex;
+    justify-content: flex-end;
+}
+#close_lightbox img {
+    width: 20px;
+    filter: invert(100%) brightness(200%);
+    cursor: pointer;
+}
+#close_lightbox img:hover {
+    filter: invert(48%) sepia(96%) saturate(1148%) hue-rotate(348deg) brightness(103%) contrast(101%);
+}
+#zoom ul {
+    flex-direction: column;
+}
+#zoom ul li {
+    display: none;
+}
+#zoom ul .focus {
+    display: block;
+}
+#zoom img {
+    width: 100%;
+    border-radius: 16px;
+}
+
+/* Main (Visuals) */
+
+#visuals {
+    max-width: 450px;
+}
+#vision {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+}
+#slider {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+#slider ul {
+    justify-content: space-between;
+    height: 100%;
+}
+#slider ul li {
+    margin: 28px;
+    pointer-events: auto;
+}
+.step {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.step:hover img {
+    filter: invert(48%) sepia(96%) saturate(1148%) hue-rotate(348deg) brightness(103%) contrast(101%);
+    /* This filter switch the black color of the svg to the primary orange */
+}
+.step div {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    background: hsl(0, 0%, 100%);
+    border-radius: 50%;
+}
+.step img {
+    width: 11px;
+    user-select: none;
+    z-index: 2;
+}
+#central_picture {
+    width: 400%;
+    /* To avoid all the pictures together taking the full of available width, I multiply by 4 (the amount of pictures) to make each picture taking the full of available width */
+    transition: transform 0.4s ease;
+}
+#central_picture li {
+    display: inline-flex;
+}
+#central_picture img {
+    width: 100%;
+}
+#thumbnails {
+    padding-top: 28px;
+    justify-content: space-between;
+    gap: 28px;
+}
+#thumbnails li {
+    display: inline-flex;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    transition: border-color 0.2s ease;
+}
+#thumbnails .selected {
+    border-color: hsl(26, 100%, 55%);
+}
+#thumbnails img {
+    width: 100%;
+    border-radius: 10px;
+    transition: filter 0.2s ease;
+    cursor: pointer;
+}
+#thumbnails .selected img, #thumbnails .selected img:hover {
+    filter: opacity(30%);
+}
+#thumbnails img:hover {
+    filter: opacity(50%);
+}
+
+/* Main (Details) */
+
+#details {
+    width: 38%;
+    max-width: 585px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+#details > p {
+    margin-top: 20px;
+}
+#price {
+    margin: 5px 0;
+}
+#price h2 {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+#price h2::after {
+    content: "50%";
+    display: block;
+    padding: 4px 8px;
+    font-size: 15px;
+    color: hsl(0, 0%, 100%);
+    background: hsl(220, 13%, 13%);
+    border-radius: 6px;
+}
+#price h4 {
+    margin-top: 13px;
+}
+
+/* Main (Add to cart) */
+
+#add_cart {
+    margin-top: 10px;
+    display: flex;
+    gap: 16px;
+}
+#amount, #submit {
+    height: 55px;
+}
+#amount {
+    padding: 0 10px;
+    justify-content: space-between;
+    width: 35%;
+    background: hsl(223, 64%, 98%);
+}
+#amount img {
+    padding: 10px;
+    cursor: pointer;
+    transition: filter 0.3s ease;
+}
+#amount img:hover {
+    filter: opacity(50%);
+}
+#submit {
+    gap: 15px;
+    width: 65%;
+}
+#submit img {
+    width: 17px;
+    height: 17px;
+    filter: brightness(25%);
+}
+
+/* Keyframes */
+
+@keyframes loading_bar {
+    0% {
+        transform: scaleX(0%);
+    }
+    100% {
+        transform: scaleX(100%);
+    }
+}
+
+/* Media Queries */
+
+@media screen and (width < 1024px) {
+    body {
+        padding: 30px 5vw 0;
+    }
+    header {
+        padding-bottom: 0px;
+        border-bottom: none;
+    }
+    #menu nav {
+        padding: 48px 5vw;
+    }
+    #menu_icon {
+        display: block;
+    }
+    header nav > a {
+        flex: 1;
+    }
+    #links {
+        display: none;
+    }
+    #account {
+        gap: 25px;
+    }
+    main {
+        flex-direction: column;
+        gap: 50px;
+        height: auto;
+    }
+    #lightbox div {
+        width: 75%;
+        max-width: none;
+    }
+    #cart {
+        right: calc(5vw - (21px / 2));
+        transform: none;
+    }
+    #visuals, #details {
+        width: 100%;
+        max-width: none;
+    }
+}
+@media screen and (width < 450px) {
+    body {
+        padding: 20px 0;
+    }
+    h1 {
+        font-size: 32px;
+        line-height: 35px;
+    }
+    h2 {
+        font-size: 28px;
+    }
+    header, #details {
+        padding: 0 5vw;
+        box-sizing: border-box;
+    }
+    #menu nav {
+        padding: 30px 5vw;
+    }
+    #avatar {
+        width: 30px;
+    }
+    main {
+        padding: 20px 0;
+        gap: 20px;
+    }
+    #cart {
+        left: 50%;
+        right: 0;
+        width: 95%;
+        transform: translateX(-50%);
+    }
+    #vision {
+        border-radius: 0;
+    }
+    #slider {
+        display: block;
+    }
+    #thumbnails {
+        display: none;
+    }
+    #details > p {
+        margin-top: 0px;
+    }
+    #price {
+        display: flex;
+        align-items: center;
+    }
+    #price h2 {
+        flex: 1;
+    }
+    #price h4 {
+        margin-top: 0px;
+    }
+    #add_cart {
+        flex-direction: column;
+    }
+    #amount, #submit {
+        width: 100%;
+    }
+    #amount {
+        box-sizing: border-box;
+    }
+}
